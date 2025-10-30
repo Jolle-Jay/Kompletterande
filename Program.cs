@@ -1,2 +1,85 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System.IO;
+
+// l0gga in med uppgifter som ligger sparade i en fil
+// se en lista av alla rum som har gäster just nu
+// se en lista av alla lediga rum
+// boka in en gäst i ett ledigt rum
+// checka ut en gäst från ett upptaget rum
+//markera att ett rum, temporärt inte är tillgängligt
+
+using app;
+
+List<User> users = new List<User>();
+string[] room = new string[10];
+User? active_user = null;
+bool running = true;
+while (running)
+
+
+{
+    if (active_user == null)
+
+    {
+        System.Console.WriteLine("1 For login");
+        string menu = Console.ReadLine();
+
+        switch (menu)
+        {
+            case "1":
+                Console.Clear();
+
+                Console.WriteLine("Enter Login details");
+                string Email = Console.ReadLine();
+                Console.Clear();
+                System.Console.WriteLine("Enter password");
+                string password = Console.ReadLine();
+                string[] lines = File.ReadAllLines("loginNames.txt");
+
+
+                foreach (User user in users)
+                {
+                    if (user.TryLogin(Email, password))
+                    {
+                        active_user = user;
+                        break;
+                    }
+                }
+                break;
+        }
+    }
+
+
+    if (active_user != null)
+    {
+        Console.Clear();
+        System.Console.WriteLine("Hello " + active_user.Email);
+        System.Console.WriteLine("2 to show a list of all occupied rooms");
+        System.Console.WriteLine("3 to see a list of all free rooms");
+        System.Console.WriteLine("4 book in a guest in a free room");
+        System.Console.WriteLine("5 check out a guest from a occupied room");
+        System.Console.WriteLine("6 mark a room unavailable temporarly");
+
+        string menu2 = Console.ReadLine();
+
+        switch (menu2)
+        {
+            case "2":
+                break;
+
+            case "3":
+                break;
+
+            case "4":
+                break;
+
+            case "5":
+                break;
+
+            case "6":
+                break;
+
+            case "7":
+                break;
+        }
+    }
+}

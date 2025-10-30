@@ -1,0 +1,15 @@
+/Users/jolle/repos/kompletterande/bin/Debug/net9.0/kompletterande
+/Users/jolle/repos/kompletterande/bin/Debug/net9.0/kompletterande.deps.json
+/Users/jolle/repos/kompletterande/bin/Debug/net9.0/kompletterande.runtimeconfig.json
+/Users/jolle/repos/kompletterande/bin/Debug/net9.0/kompletterande.dll
+/Users/jolle/repos/kompletterande/bin/Debug/net9.0/kompletterande.pdb
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.AssemblyInfoInputs.cache
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.AssemblyInfo.cs
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.csproj.CoreCompileInputs.cache
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.sourcelink.json
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.dll
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/refint/kompletterande.dll
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.pdb
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/kompletterande.genruntimeconfig.cache
+/Users/jolle/repos/kompletterande/obj/Debug/net9.0/ref/kompletterande.dll
