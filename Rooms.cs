@@ -1,23 +1,21 @@
 namespace app;
 
+public enum RoomStatus
+
+{
+    Available,
+    Occupied,
+    Cleaning,
+    Maintenance,
+}
 public class Room
 {
-    public int Number;
-    public bool Occupied = false;
 
-    public Room(int number, bool occupied)
-    {
-        Number = number;
-        Occupied = occupied;
 
-    }
+    public int roomNumber;
+    public RoomStatus Status;
+    public string guestName;
 
-    public enum RoomStatus
 
-    {
-        Available,
-        Occupied,
-        Cleaning,
-        Maintenance,
-    }
+
 }

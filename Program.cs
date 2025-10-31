@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Runtime.CompilerServices;
+
 
 // l0gga in med uppgifter som ligger sparade i en fil
 // se en lista av alla rum som har gäster just nu
@@ -12,18 +14,21 @@ using app;
 List<User> users = new List<User>();
 List<Room> rooms = new List<Room>();
 {
-    new Room(1, false);
-    new Room(2, true);
-    new Room(3, false);
-    new Room(4, false);
-    new Room(5, false);
-    new Room(6, false);
-    new Room(7, false);
-    new Room(8, false);
-    new Room(9, false);
-    new Room(10, false);
+    new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" };
+    new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" };
+    new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" };
+    new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" };
+    new Room { roomNumber = 5, Status = RoomStatus.Available, };
+    new Room { roomNumber = 6, Status = RoomStatus.Available, };
+    new Room { roomNumber = 7, Status = RoomStatus.Available, };
+    new Room { roomNumber = 8, Status = RoomStatus.Available, };
+    new Room { roomNumber = 9, Status = RoomStatus.Available, };
+    new Room { roomNumber = 10, Status = RoomStatus.Available, };
+
+
 
 }
+;
 User? active_user = null;
 bool running = true;
 while (running)
@@ -86,9 +91,33 @@ while (running)
         {
             case "2":
                 Console.Clear();
+                System.Console.WriteLine("This is all the occupied rooms");
+
+                bool found = false;
+                foreach (var Room in rooms)
+                {
+                    if (Room.Status == RoomStatus.Occupied)
+                    {
+                        Console.WriteLine($"Room {Room.roomNumber} - Guest: {Room.guestName}");
+                        found = true;
+                        Console.ReadLine();
+                    }
+                }
+
+
                 break;
 
             case "3":
+                Console.Clear();
+                System.Console.WriteLine("These are all the free rooms");
+
+                foreach (var Room in rooms)
+                {
+                    if (Room.Status == RoomStatus.Available)
+                    {
+                        Console.WriteLine($"Room {Room.roomNumber} is available!");
+                    }
+                }
                 break;
 
             case "4":
