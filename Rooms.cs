@@ -11,4 +11,13 @@ public class Room
         Occupied = occupied;
 
     }
+
+    public enum RoomStatus
+
+    {
+        Available,
+        Occupied,
+        Cleaning,
+        Maintenance,
+    }
 }
