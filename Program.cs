@@ -10,7 +10,20 @@
 using app;
 
 List<User> users = new List<User>();
-string[] room = new string[10];
+List<Room> rooms = new List<Room>();
+{
+    new Room(1, false);
+    new Room(2, true);
+    new Room(3, false);
+    new Room(4, false);
+    new Room(5, false);
+    new Room(6, false);
+    new Room(7, false);
+    new Room(8, false);
+    new Room(9, false);
+    new Room(10, false);
+
+}
 User? active_user = null;
 bool running = true;
 while (running)
@@ -26,25 +39,38 @@ while (running)
         switch (menu)
         {
             case "1":
-                Console.Clear();
-
-                Console.WriteLine("Enter Login details");
-                string Email = Console.ReadLine();
-                Console.Clear();
-                System.Console.WriteLine("Enter password");
-                string password = Console.ReadLine();
-                string[] lines = File.ReadAllLines("loginNames.txt");
-
-
                 foreach (User user in users)
-                {
-                    if (user.TryLogin(Email, password))
-                    {
-                        active_user = user;
-                        break;
-                    }
-                }
+                    active_user = user;
                 break;
+                // case "1":
+                //     {
+                //         Console.Clear();
+                //         string filePath = "loginNames.txt";
+                //         Console.WriteLine("Enter Login details");
+                //         string Email = Console.ReadLine();
+                //         Console.Clear();
+                //         System.Console.WriteLine("Enter password");
+                //         string password = Console.ReadLine();
+                //         string[] lines = File.ReadAllLines(filePath);
+
+                //         foreach (string line in lines)
+                //         {
+                //             string[] parts = line.Split(',');
+
+                //             if (parts.Length == 2)
+                //             {
+                //                 string email = parts[0].Trim();
+                //                 string Password = parts[1].Trim();
+
+
+
+                //                 foreach (User user in users)
+                //                     if (email == Email && Password == password)
+                //                         active_user = user;
+                //             }
+                //         }
+                //     }
+                //     break;
         }
     }
 
@@ -64,6 +90,7 @@ while (running)
         switch (menu2)
         {
             case "2":
+                Console.Clear();
                 break;
 
             case "3":
