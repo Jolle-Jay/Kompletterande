@@ -24,11 +24,14 @@ List<Room> rooms = new List<Room>();
     new Room { roomNumber = 8, Status = RoomStatus.Available, };
     new Room { roomNumber = 9, Status = RoomStatus.Available, };
     new Room { roomNumber = 10, Status = RoomStatus.Available, };
-
-
-
 }
 ;
+
+if (File.Exists("loginNames"))
+{
+    string[] lines = File.ReadAllLines("users.save");
+    foreach (string line in lines)
+}
 User? active_user = null;
 bool running = true;
 while (running)
@@ -77,6 +80,7 @@ while (running)
 
     if (active_user != null)
     {
+
         Console.Clear();
         System.Console.WriteLine("Hello " + active_user.Email);
         System.Console.WriteLine("2 to show a list of all occupied rooms");
@@ -91,20 +95,16 @@ while (running)
         {
             case "2":
                 Console.Clear();
-                System.Console.WriteLine("This is all the occupied rooms");
-
-                bool found = false;
                 foreach (var Room in rooms)
                 {
                     if (Room.Status == RoomStatus.Occupied)
                     {
                         Console.WriteLine($"Room {Room.roomNumber} - Guest: {Room.guestName}");
-                        found = true;
-                        Console.ReadLine();
+
                     }
                 }
 
-
+                Console.ReadLine();
                 break;
 
             case "3":
@@ -121,7 +121,29 @@ while (running)
                 break;
 
             case "4":
-                break;
+                {
+                    Console.Clear();
+
+                    foreach (var Room in rooms)
+                    {
+                        if (Room.Status == RoomStatus.Available)
+                            System.Console.WriteLine($"These are the rooms available {Room.roomNumber}");
+
+                    }
+
+                    Console.Write("Enter which room you want to book");
+                    int chosenRoomNumber;
+                    int.TryParse(Console.ReadLine(), out chosenRoomNumber);
+                    foreach (var Room in rooms)
+                    {
+                        if (Room.roomNumber == chosenRoomNumber)
+                        {
+                            Room.Status = RoomStatus.Occupied;
+                            //Room.guestName = Console.ReadLine();
+                        }
+                    }
+                    break;
+                }
 
             case "5":
                 break;

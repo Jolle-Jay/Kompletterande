@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace app;
 
+
+
 public class User
 {
     public string Email;
