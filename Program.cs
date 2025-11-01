@@ -27,10 +27,14 @@ List<Room> rooms = new List<Room>();
 }
 ;
 
-if (File.Exists("loginNames"))
+if (File.Exists("loginNames.txt"))
 {
-    string[] lines = File.ReadAllLines("users.save");
+    string[] lines = File.ReadAllLines("loginNames.txt");
     foreach (string line in lines)
+    {
+        string[] data = line.Split(",");
+        users.Add(new(data[0], data[1]));
+    }
 }
 User? active_user = null;
 bool running = true;

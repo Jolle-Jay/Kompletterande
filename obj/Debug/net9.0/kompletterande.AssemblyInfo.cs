@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("kompletterande")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d428028bb8139d03639c78eb9e1d49e26691cfe6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44d719f4e443d8cbf35f66534f714408d34dbcda")]
 [assembly: System.Reflection.AssemblyProductAttribute("kompletterande")]
 [assembly: System.Reflection.AssemblyTitleAttribute("kompletterande")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

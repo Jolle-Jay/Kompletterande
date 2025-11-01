@@ -20,4 +20,9 @@ public class User
     {
         return username == Email && password == _password;
     }
+
+    public string ToSaveString()
+    {
+        return $"{Email},{_password}";
+    }
 }
