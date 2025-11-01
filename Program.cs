@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.IO.Compression;
 using System.Runtime.CompilerServices;
 
 
@@ -133,11 +134,6 @@ while (running)
                     }
 
                 }
-
-
-
-
-
                 Console.ReadLine();
                 break;
 
@@ -145,25 +141,27 @@ while (running)
                 Console.Clear();
                 System.Console.WriteLine("These are all the free rooms");
 
-                foreach (var Room in rooms)
+                string[] ARooms = File.ReadAllLines("Rooms.txt");
+
+                foreach (string banana in ARooms)
                 {
-                    if (Room.Status == RoomStatus.Available)
+                    string[] monkey = banana.Split(',');
+                    if (monkey.Length >= 1 && monkey[1] == "Available")
                     {
-                        Console.WriteLine($"Room {Room.roomNumber} is available!");
+                        string roomNumber = monkey[0];
+                        System.Console.WriteLine($"The room {roomNumber} is available.");
                     }
                 }
+                Console.ReadLine();
                 break;
 
             case "4":
                 {
                     Console.Clear();
+                    System.Console.WriteLine("These are the rooms available");
+                    string[] Arooms = File.ReadAllLines("Rooms.txt");
 
-                    foreach (var Room in rooms)
-                    {
-                        if (Room.Status == RoomStatus.Available)
-                            System.Console.WriteLine($"These are the rooms available {Room.roomNumber}");
 
-                    }
 
                     Console.Write("Enter which room you want to book");
                     int chosenRoomNumber;
@@ -172,10 +170,18 @@ while (running)
                     {
                         if (Room.roomNumber == chosenRoomNumber)
                         {
+                            System.Console.WriteLine("What is the guests name for the booking?");
+                            string guestName = Console.ReadLine();
                             Room.Status = RoomStatus.Occupied;
+                            Room.guestName = guestName;
                             //Room.guestName = Console.ReadLine();
+
+                            System.Console.WriteLine($"Room {Room.roomNumber} booked succesfully");
                         }
                     }
+
+
+
                     break;
                 }
 
