@@ -14,28 +14,52 @@ using app;
 List<User> users = new List<User>();
 List<Room> rooms = new List<Room>();
 {
-    new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" };
-    new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" };
-    new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" };
-    new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" };
-    new Room { roomNumber = 5, Status = RoomStatus.Available, };
-    new Room { roomNumber = 6, Status = RoomStatus.Available, };
-    new Room { roomNumber = 7, Status = RoomStatus.Available, };
-    new Room { roomNumber = 8, Status = RoomStatus.Available, };
-    new Room { roomNumber = 9, Status = RoomStatus.Available, };
-    new Room { roomNumber = 10, Status = RoomStatus.Available, };
+
+    {
+        new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" };
+        new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" };
+        new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" };
+        new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" };
+        new Room { roomNumber = 5, Status = RoomStatus.Available, };
+        new Room { roomNumber = 6, Status = RoomStatus.Available, };
+        new Room { roomNumber = 7, Status = RoomStatus.Available, };
+        new Room { roomNumber = 8, Status = RoomStatus.Available, };
+        new Room { roomNumber = 9, Status = RoomStatus.Available, };
+        new Room { roomNumber = 10, Status = RoomStatus.Available, };
+    }
+    List<string> lines = new List<string>();
+    foreach (Room room in rooms)
+    {
+        lines.Add($"{room.roomNumber},{room.Status},{room.guestName}");
+    }
+    File.WriteAllLines("Rooms.txt", lines);
 }
-;
+
+
+
 
 if (File.Exists("loginNames.txt"))
 {
-    string[] lines = File.ReadAllLines("loginNames.txt");
-    foreach (string line in lines)
+    string[] lines = File.ReadAllLines("loginNames.txt"); // Reading all the lines in the loginNames txt
+    foreach (string line in lines) // Loop through every line in lines
     {
-        string[] data = line.Split(",");
-        users.Add(new(data[0], data[1]));
+        string[] data = line.Split(","); // read it in and divide / split it when there is a ,
+        users.Add(new(data[0], data[1])); // add the User when the data from line 0 and line 1 is read in.
     }
 }
+
+if (File.Exists("Rooms.txt"))
+{
+    string[] lines = File.ReadAllLines("Rooms.txt");
+    foreach (string line in lines)
+    {
+        string[] details = line.Split(",");
+
+    }
+}
+
+
+
 User? active_user = null;
 bool running = true;
 while (running)
@@ -45,24 +69,14 @@ while (running)
     if (active_user == null)
 
     {
-        System.Console.WriteLine("1 Create Account");
-        System.Console.WriteLine("2 Login");
+
+        System.Console.WriteLine("1 Login");
         string menu = Console.ReadLine();
 
         switch (menu)
         {
-            case "1": // Om jag skriver 1 så följer den instruktioner för att skapa konto
-                Console.Clear(); // gör det rent o fint i consolen
-                Console.WriteLine("Enter you email as username");
-                string new_name = Console.ReadLine(); //Programmet sparar användarnamnet i lappen "new_name"
-                Console.WriteLine("Enter your password for your account");
-                string new_password = Console.ReadLine(); //Programmet sparar lösenordetr i lappen "new_password"
-                users.Add(new User(new_name, new_password)); // Programmet skapar EN NY användar LAPP med min epost och lösen och lägger det i lådan USERS.
-                Console.WriteLine("Congratz to your account!");
-                File.AppendAllText("./loginNames.txt", new_name + "\n"); //Programmet skriver NER min nya epost adress i en textfil som heter Account_names.txt så att den finns kvar även om programmet stängs av.
-                break; // slut
 
-            case "2": // Om du skriver 2 så vill du logga in
+            case "1": // Om du skriver 2 så vill du logga in
                 Console.Clear();
                 Console.WriteLine("Enter your email to login");
                 string login_name = Console.ReadLine(); // Programmet sparar login namnet i lappen login_name
