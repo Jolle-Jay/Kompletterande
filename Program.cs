@@ -16,16 +16,16 @@ List<Room> rooms = new List<Room>();
 {
 
     {
-        new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" };
-        new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" };
-        new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" };
-        new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" };
-        new Room { roomNumber = 5, Status = RoomStatus.Available, };
-        new Room { roomNumber = 6, Status = RoomStatus.Available, };
-        new Room { roomNumber = 7, Status = RoomStatus.Available, };
-        new Room { roomNumber = 8, Status = RoomStatus.Available, };
-        new Room { roomNumber = 9, Status = RoomStatus.Available, };
-        new Room { roomNumber = 10, Status = RoomStatus.Available, };
+        rooms.Add(new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" });
+        rooms.Add(new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" });
+        rooms.Add(new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" });
+        rooms.Add(new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" });
+        rooms.Add(new Room { roomNumber = 5, Status = RoomStatus.Available, });
+        rooms.Add(new Room { roomNumber = 6, Status = RoomStatus.Available, });
+        rooms.Add(new Room { roomNumber = 7, Status = RoomStatus.Available, });
+        rooms.Add(new Room { roomNumber = 8, Status = RoomStatus.Available, });
+        rooms.Add(new Room { roomNumber = 9, Status = RoomStatus.Available, });
+        rooms.Add(new Room { roomNumber = 10, Status = RoomStatus.Available, });
     }
     List<string> lines = new List<string>();
     foreach (Room room in rooms)
@@ -113,14 +113,30 @@ while (running)
         {
             case "2":
                 Console.Clear();
-                foreach (var Room in rooms)
-                {
-                    if (Room.Status == RoomStatus.Occupied)
-                    {
-                        Console.WriteLine($"Room {Room.roomNumber} - Guest: {Room.guestName}");
+                System.Console.WriteLine("Occupied rooms:\n");
 
+                string[] OpRooms = File.ReadAllLines("Rooms.txt");
+
+                foreach (string line in OpRooms)
+                {
+                    string[] parts = line.Split(',');
+
+                    if (parts.Length >= 2 && parts[1] == "Occupied")
+                    {
+                        string roomNumber = parts[0];
+                        string guestName;
+                        if (parts.Length > 2)
+                            guestName = parts[2];
+                        else
+                            guestName = "(No guest name)";
+                        System.Console.WriteLine($"The room {roomNumber} are occupied by guest {guestName}");
                     }
+
                 }
+
+
+
+
 
                 Console.ReadLine();
                 break;

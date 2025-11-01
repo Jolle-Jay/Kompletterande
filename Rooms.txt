@@ -1,0 +1,10 @@
+1,Occupied,Hercules
+2,Occupied,Odin
+3,Occupied,Zora
+4,Occupied,Son-Goku
+5,Available,
+6,Available,
+7,Available,
+8,Available,
+9,Available,
+10,Available,
