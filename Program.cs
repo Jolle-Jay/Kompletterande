@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Data.SqlTypes;
+using System.IO;
 using System.IO.Compression;
 using System.Runtime.CompilerServices;
 
@@ -155,40 +156,57 @@ while (running)
                 Console.ReadLine();
                 break;
 
-            case "4":
+            case "4":// boka in en gäst i ett ledigt rum
+
                 {
                     Console.Clear();
-                    System.Console.WriteLine("These are the rooms available");
-                    string[] Arooms = File.ReadAllLines("Rooms.txt");
+                    string[] Room = File.ReadAllLines("Rooms.txt");
 
-
-
-                    Console.Write("Enter which room you want to book");
-                    int chosenRoomNumber;
-                    int.TryParse(Console.ReadLine(), out chosenRoomNumber);
-                    foreach (var Room in rooms)
+                    foreach (string line in Room)
                     {
-                        if (Room.roomNumber == chosenRoomNumber)
+                        string[] parts = line.Split(',');
+                        if (parts.Length >= 1 && parts[1] == "Available")
                         {
-                            System.Console.WriteLine("What is the guests name for the booking?");
-                            string guestName = Console.ReadLine();
-                            Room.Status = RoomStatus.Occupied;
-                            Room.guestName = guestName;
-                            //Room.guestName = Console.ReadLine();
-
-                            System.Console.WriteLine($"Room {Room.roomNumber} booked succesfully");
+                            string roomNumber = parts[0];
+                            System.Console.WriteLine($"The room {roomNumber} is ready for booking.");
                         }
+
+
                     }
 
 
 
+
+                    // Console.Write("Enter which room you want to book");
+                    // int chosenRoomNumber;
+                    // int.TryParse(Console.ReadLine(), out chosenRoomNumber);
+                    // foreach (var room in rooms)
+                    // {
+                    //     if (room.roomNumber == chosenRoomNumber)
+                    //     {
+                    //         System.Console.WriteLine("What is the guests name for the booking?");
+                    //         string guestName = Console.ReadLine();
+                    //         room.Status = RoomStatus.Occupied;
+                    //         room.guestName = guestName;
+                    //         //Room.guestName = Console.ReadLine();
+
+                    //         System.Console.WriteLine($"Room {room.roomNumber} booked succesfully");
+                    //     }
+                    // }
+
+
+                    Console.ReadLine();
                     break;
                 }
 
             case "5":
+                // checka ut en gäst från ett upptaget rum
+
                 break;
 
             case "6":
+                //markera att ett rum, temporärt inte är tillgängligt
+
                 break;
 
             case "7":
