@@ -123,7 +123,7 @@ while (running)
                 {
                     string[] parts = line.Split(',');
 
-                    if (parts.Length >= 2 && parts[1] == "Occupied")
+                    if (parts.Length >= 2 && parts[1].Trim() == "Occupied")
                     {
                         string roomNumber = parts[0];
                         string guestName;
@@ -147,7 +147,7 @@ while (running)
                 foreach (string banana in ARooms)
                 {
                     string[] monkey = banana.Split(',');
-                    if (monkey.Length >= 1 && monkey[1] == "Available")
+                    if (monkey.Length >= 1 && monkey[1].Trim() == "Available")
                     {
                         string roomNumber = monkey[0];
                         System.Console.WriteLine($"The room {roomNumber} is available.");
@@ -160,44 +160,78 @@ while (running)
 
                 {
                     Console.Clear();
-                    string[] Room = File.ReadAllLines("Rooms.txt");
+                    System.Console.WriteLine("These are the available rooms");
 
-                    foreach (string line in Room)
+                    string[] BRooms = File.ReadAllLines("Rooms.txt");
+                    foreach (Room room in rooms)
                     {
-                        string[] parts = line.Split(',');
-                        if (parts.Length >= 1 && parts[1] == "Available")
+                        if (room.Status == RoomStatus.Available)
                         {
-                            string roomNumber = parts[0];
-                            System.Console.WriteLine($"The room {roomNumber} is ready for booking.");
+                            System.Console.WriteLine($"Room {room.roomNumber}");
                         }
+                    }
 
+                    System.Console.WriteLine("What room number to book?");
+                    int chosenRoomNumber;
+                    int.TryParse(Console.ReadLine(), out chosenRoomNumber);
+
+                    Room selectedRoom = null; //Måste göra något som kan hålla allt det jag vill skriva i och sätta det som null för att börja lägga in saker
+
+                    {
+                        foreach (Room room in rooms)
+                        {
+
+                            {
+                                if (room.roomNumber == chosenRoomNumber)
+                                {
+                                    selectedRoom = room; //Lägger in room i SRoom efter jag har sagt att chosenNumber faktiskt är lika med ett RoomNumber
+                                    break;
+                                }
+                            }
+                        }
+                        if (selectedRoom != null) // När då SROOM inte är null så kan jag göra det occupied och lägga in ett nammn
+                        {
+                            if (selectedRoom.Status == RoomStatus.Available)
+
+                            {
+                                System.Console.WriteLine("What is the name of the guest?");
+                                string guestName = Console.ReadLine();
+
+                                selectedRoom.Status = RoomStatus.Occupied;
+
+
+                                selectedRoom.guestName = guestName;
+
+                                System.Console.WriteLine("$Room {selectedRoom.roomNumber} booked!");
+                            }
+                            else
+                            {
+                                System.Console.WriteLine("That room not available fool!");
+                            }
+
+                            List<string> lines = new List<string>();
+                            foreach (Room room in rooms)
+                            {
+                                lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}");
+                            }
+                            File.WriteAllLines("Rooms.txt", lines);
+                        }
 
                     }
 
 
 
 
-                    // Console.Write("Enter which room you want to book");
-                    // int chosenRoomNumber;
-                    // int.TryParse(Console.ReadLine(), out chosenRoomNumber);
-                    // foreach (var room in rooms)
-                    // {
-                    //     if (room.roomNumber == chosenRoomNumber)
-                    //     {
-                    //         System.Console.WriteLine("What is the guests name for the booking?");
-                    //         string guestName = Console.ReadLine();
-                    //         room.Status = RoomStatus.Occupied;
-                    //         room.guestName = guestName;
-                    //         //Room.guestName = Console.ReadLine();
 
-                    //         System.Console.WriteLine($"Room {room.roomNumber} booked succesfully");
-                    //     }
-                    // }
+
+
 
 
                     Console.ReadLine();
-                    break;
                 }
+                break;
+
+
 
             case "5":
                 // checka ut en gäst från ett upptaget rum
@@ -214,3 +248,6 @@ while (running)
         }
     }
 }
+
+
+

@@ -12,9 +12,9 @@ public class Room
 {
 
 
-    public int roomNumber;
-    public RoomStatus Status;
-    public string guestName;
+    public int roomNumber { get; set; }
+    public RoomStatus Status { get; set; }
+    public string guestName { get; set; }
 
 
 
