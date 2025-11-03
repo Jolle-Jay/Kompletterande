@@ -1,6 +1,7 @@
 ﻿using System.Data.SqlTypes;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Runtime.CompilerServices;
 
 
@@ -15,6 +16,7 @@ using app;
 
 List<User> users = new List<User>();
 List<Room> rooms = new List<Room>();
+List<string> lines = new List<string>(); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
 {
 
     {
@@ -29,7 +31,6 @@ List<Room> rooms = new List<Room>();
         rooms.Add(new Room { roomNumber = 9, Status = RoomStatus.Available, });
         rooms.Add(new Room { roomNumber = 10, Status = RoomStatus.Available, });
     }
-    List<string> lines = new List<string>(); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
     foreach (Room room in rooms)
     {
         lines.Add($"{room.roomNumber},{room.Status},{room.guestName}"); // adderar det med enumsen
@@ -42,8 +43,8 @@ List<Room> rooms = new List<Room>();
 
 if (File.Exists("loginNames.txt"))
 {
-    string[] lines = File.ReadAllLines("loginNames.txt"); // Reading all the lines in the loginNames txt
-    foreach (string line in lines) // Loop through every line in lines
+    string[] liness = File.ReadAllLines("loginNames.txt"); // Reading all the lines in the loginNames txt
+    foreach (string line in liness) // Loop through every line in lines
     {
         string[] data = line.Split(","); // read it in and divide / split it when there is a ,
         users.Add(new(data[0], data[1])); // add the User when the data from line 0 and line 1 is read in.
@@ -65,11 +66,8 @@ if (File.Exists("loginNames.txt"))
 User? active_user = null;
 bool running = true;
 while (running)
-
-
 {
     if (active_user == null)
-
     {
 
         System.Console.WriteLine("1 Login");
@@ -96,7 +94,6 @@ while (running)
                 break;
         }
     }
-
 
     if (active_user != null)
     {
@@ -209,7 +206,6 @@ while (running)
                                 System.Console.WriteLine("That room not available fool!");
                             }
 
-                            List<string> lines = new List<string>();
                             foreach (Room room in rooms)
                             {
                                 lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}");
@@ -234,12 +230,13 @@ while (running)
                         {
 
                             System.Console.WriteLine($"These are the Occupied rooms {room.roomNumber} by guest {room.guestName}");
-                            Console.ReadLine();
                         }
                     }
+
+
                     System.Console.WriteLine("Which room number do you want to check out?");
-                    int inputNumber;
-                    int.TryParse(Console.ReadLine(), out inputNumber);
+
+                    int.TryParse(Console.ReadLine(), out int inputNumber);
 
                     Room selectedRoom = null;
 
@@ -247,9 +244,26 @@ while (running)
                     {
                         if (room.roomNumber == inputNumber)
                         {
-
+                            selectedRoom = room;
+                            break;
                         }
                     }
+                    if (selectedRoom != null)
+                    {
+                        if (selectedRoom.Status == RoomStatus.Occupied)
+                        {
+                            selectedRoom.Status = RoomStatus.Available;
+                            selectedRoom.guestName = "";
+                            System.Console.WriteLine($"The room {selectedRoom} is available! ");
+                            File.WriteAllLines("Rooms.txt", lines);
+                        }
+                    }
+
+
+
+                    Console.ReadLine();
+
+
 
 
                 }
