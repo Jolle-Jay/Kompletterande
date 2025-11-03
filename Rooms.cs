@@ -12,9 +12,16 @@ public class Room
 {
 
 
-    public int roomNumber { get; set; }
-    public RoomStatus Status { get; set; }
-    public string guestName { get; set; }
+    public int roomNumber;
+    public RoomStatus Status;
+    public string guestName;
+
+    public Room(int RoomNumber, RoomStatus status, string GuestName)
+    {
+        roomNumber = RoomNumber;
+        Status = status;
+        guestName = GuestName;
+    }
 
 
 

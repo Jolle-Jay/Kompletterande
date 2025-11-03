@@ -21,23 +21,41 @@ List<Room> rooms = new List<Room>();
 {
 
     {
-        rooms.Add(new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" });
-        rooms.Add(new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" });
-        rooms.Add(new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" });
-        rooms.Add(new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" });
-        rooms.Add(new Room { roomNumber = 5, Status = RoomStatus.Available, });
-        rooms.Add(new Room { roomNumber = 6, Status = RoomStatus.Available, });
-        rooms.Add(new Room { roomNumber = 7, Status = RoomStatus.Available, });
-        rooms.Add(new Room { roomNumber = 8, Status = RoomStatus.Available, });
-        rooms.Add(new Room { roomNumber = 9, Status = RoomStatus.Available, });
-        rooms.Add(new Room { roomNumber = 10, Status = RoomStatus.Available, });
+        // rooms.Add(new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" });
+        // rooms.Add(new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" });
+        // rooms.Add(new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" });
+        // rooms.Add(new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" });
+        // rooms.Add(new Room { roomNumber = 5, Status = RoomStatus.Available, });
+        // rooms.Add(new Room { roomNumber = 6, Status = RoomStatus.Available, });
+        // rooms.Add(new Room { roomNumber = 7, Status = RoomStatus.Available, });
+        // rooms.Add(new Room { roomNumber = 8, Status = RoomStatus.Available, });
+        // rooms.Add(new Room { roomNumber = 9, Status = RoomStatus.Available, });
+        // rooms.Add(new Room { roomNumber = 10, Status = RoomStatus.Available, });
     }
-    List<string> lines = new List<string>(); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
-    foreach (Room room in rooms)
+    // KOD FÖR ATT LÄSA IN FRÅN Rooms.TXT OCH SPARA I LISTAN List<rooms>
+
+    // Läser in alla rader och sparar varje rad i string array read. 
+    string[] read = File.ReadAllLines("Rooms.txt"); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
+
+    // För varje rad i string array read så delar vi upp kollumnerna (spilt ',')
+    foreach (string line in read)
     {
-        lines.Add($"{room.roomNumber},{room.Status},{room.guestName}"); // adderar det med enumsen
+        string[] parts = line.Split(',');
+
+        // Gör om string "rumnummer" till int roomNum
+        int roomNum;
+        int.TryParse(parts[0], out roomNum);
+
+        // gör om string status till enum status
+        RoomStatus status = (RoomStatus)Enum.Parse(typeof(RoomStatus), parts[1]);
+
+        // sparar den i ett nytt room
+        Room room = new Room(roomNum, status, parts[2]);
+
+        // lägger till det skapade room i listan av rooms
+        rooms.Add(room);
     }
-    File.WriteAllLines("Rooms.txt", lines);
+
 }
 
 
@@ -240,8 +258,6 @@ while (running)
                         }
                     }
 
-                    Console.ReadLine();
-
                     System.Console.WriteLine("Which room number do you want to check out?");
                     int inputNumber;
                     int.TryParse(Console.ReadLine(), out inputNumber);
@@ -256,18 +272,21 @@ while (running)
                             break;
                         }
                     }
-                    if (selectedRoom != null)
+                    if (selectedRoom != null && selectedRoom.Status == RoomStatus.Occupied)
                     {
-                        if (selectedRoom.Status == RoomStatus.Available)
-                        {
-                            selectedRoom.Status = RoomStatus.Available;
-                            selectedRoom.guestName = "";
-                            System.Console.WriteLine($"The room {selectedRoom} is available! ");
-                        }
 
 
+                        selectedRoom.Status = RoomStatus.Available;
+                        selectedRoom.guestName = "";
+                        System.Console.WriteLine($"The room {selectedRoom.roomNumber} is available! ");
 
                     }
+                    List<string> lines = new List<string>();
+                    foreach (Room room in rooms)
+                    {
+                        lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}");
+                    }
+                    File.WriteAllLines("Rooms.txt", lines);
 
 
                     Console.ReadLine();
