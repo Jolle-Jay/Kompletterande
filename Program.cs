@@ -29,10 +29,10 @@ List<Room> rooms = new List<Room>();
         rooms.Add(new Room { roomNumber = 9, Status = RoomStatus.Available, });
         rooms.Add(new Room { roomNumber = 10, Status = RoomStatus.Available, });
     }
-    List<string> lines = new List<string>();
+    List<string> lines = new List<string>(); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
     foreach (Room room in rooms)
     {
-        lines.Add($"{room.roomNumber},{room.Status},{room.guestName}");
+        lines.Add($"{room.roomNumber},{room.Status},{room.guestName}"); // adderar det med enumsen
     }
     File.WriteAllLines("Rooms.txt", lines);
 }
@@ -50,15 +50,15 @@ if (File.Exists("loginNames.txt"))
     }
 }
 
-if (File.Exists("Rooms.txt"))
-{
-    string[] lines = File.ReadAllLines("Rooms.txt");
-    foreach (string line in lines)
-    {
-        string[] details = line.Split(",");
+// if (File.Exists("Rooms.txt")) 
+// {
+//     string[] lines = File.ReadAllLines("Rooms.txt"); // Läser in txt filen och ser statusen på rummen
+//     foreach (string line in lines)
+//     {
+//         string[] details = line.Split(",");
 
-    }
-}
+//     }
+// }
 
 
 
@@ -147,7 +147,7 @@ while (running)
                 foreach (string banana in ARooms)
                 {
                     string[] monkey = banana.Split(',');
-                    if (monkey.Length >= 1 && monkey[1].Trim() == "Available")
+                    if (monkey.Length >= 1 && monkey[1].Trim() == "Available") // statusen på rummen är [1] i array därför .Length för att den ska läsa hur många rader det finns och att 1 sen ska användas för Available
                     {
                         string roomNumber = monkey[0];
                         System.Console.WriteLine($"The room {roomNumber} is available.");
@@ -202,7 +202,7 @@ while (running)
 
                                 selectedRoom.guestName = guestName;
 
-                                System.Console.WriteLine("$Room {selectedRoom.roomNumber} booked!");
+                                System.Console.WriteLine($"Room {selectedRoom.roomNumber} booked!");
                             }
                             else
                             {
@@ -218,24 +218,41 @@ while (running)
                         }
 
                     }
-
-
-
-
-
-
-
-
-
                     Console.ReadLine();
                 }
                 break;
 
-
-
             case "5":
-                // checka ut en gäst från ett upptaget rum
+                {
+                    Console.Clear();
+                    System.Console.WriteLine("You wanna check out a guest eh?");
+                    string[] Rbook = File.ReadAllLines("Rooms.txt");
 
+                    foreach (Room room in rooms)
+                    {
+                        if (room.Status == RoomStatus.Occupied)
+                        {
+
+                            System.Console.WriteLine($"These are the Occupied rooms {room.roomNumber} by guest {room.guestName}");
+                            Console.ReadLine();
+                        }
+                    }
+                    System.Console.WriteLine("Which room number do you want to check out?");
+                    int inputNumber;
+                    int.TryParse(Console.ReadLine(), out inputNumber);
+
+                    Room selectedRoom = null;
+
+                    foreach (Room room in rooms)
+                    {
+                        if (room.roomNumber == inputNumber)
+                        {
+
+                        }
+                    }
+
+
+                }
                 break;
 
             case "6":
