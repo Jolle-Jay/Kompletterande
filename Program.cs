@@ -3,6 +3,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
 
 
 // l0gga in med uppgifter som ligger sparade i en fil
@@ -16,7 +18,6 @@ using app;
 
 List<User> users = new List<User>();
 List<Room> rooms = new List<Room>();
-List<string> lines = new List<string>(); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
 {
 
     {
@@ -31,6 +32,7 @@ List<string> lines = new List<string>(); //tvungen at göra en lista med linjer 
         rooms.Add(new Room { roomNumber = 9, Status = RoomStatus.Available, });
         rooms.Add(new Room { roomNumber = 10, Status = RoomStatus.Available, });
     }
+    List<string> lines = new List<string>(); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
     foreach (Room room in rooms)
     {
         lines.Add($"{room.roomNumber},{room.Status},{room.guestName}"); // adderar det med enumsen
@@ -43,8 +45,8 @@ List<string> lines = new List<string>(); //tvungen at göra en lista med linjer 
 
 if (File.Exists("loginNames.txt"))
 {
-    string[] liness = File.ReadAllLines("loginNames.txt"); // Reading all the lines in the loginNames txt
-    foreach (string line in liness) // Loop through every line in lines
+    string[] lines = File.ReadAllLines("loginNames.txt"); // Reading all the lines in the loginNames txt
+    foreach (string line in lines) // Loop through every line in lines
     {
         string[] data = line.Split(","); // read it in and divide / split it when there is a ,
         users.Add(new(data[0], data[1])); // add the User when the data from line 0 and line 1 is read in.
@@ -66,8 +68,11 @@ if (File.Exists("loginNames.txt"))
 User? active_user = null;
 bool running = true;
 while (running)
+
+
 {
     if (active_user == null)
+
     {
 
         System.Console.WriteLine("1 Login");
@@ -94,6 +99,7 @@ while (running)
                 break;
         }
     }
+
 
     if (active_user != null)
     {
@@ -169,8 +175,8 @@ while (running)
                     }
 
                     System.Console.WriteLine("What room number to book?");
-                    int chosenRoomNumber;
-                    int.TryParse(Console.ReadLine(), out chosenRoomNumber);
+                    int BBB;
+                    int.TryParse(Console.ReadLine(), out BBB);
 
                     Room selectedRoom = null; //Måste göra något som kan hålla allt det jag vill skriva i och sätta det som null för att börja lägga in saker
 
@@ -179,7 +185,7 @@ while (running)
                         {
 
                             {
-                                if (room.roomNumber == chosenRoomNumber)
+                                if (room.roomNumber == BBB)
                                 {
                                     selectedRoom = room; //Lägger in room i SRoom efter jag har sagt att chosenNumber faktiskt är lika med ett RoomNumber
                                     break;
@@ -206,6 +212,7 @@ while (running)
                                 System.Console.WriteLine("That room not available fool!");
                             }
 
+                            List<string> lines = new List<string>();
                             foreach (Room room in rooms)
                             {
                                 lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}");
@@ -233,10 +240,11 @@ while (running)
                         }
                     }
 
+                    Console.ReadLine();
 
                     System.Console.WriteLine("Which room number do you want to check out?");
-
-                    int.TryParse(Console.ReadLine(), out int inputNumber);
+                    int inputNumber;
+                    int.TryParse(Console.ReadLine(), out inputNumber);
 
                     Room selectedRoom = null;
 
@@ -250,15 +258,16 @@ while (running)
                     }
                     if (selectedRoom != null)
                     {
-                        if (selectedRoom.Status == RoomStatus.Occupied)
+                        if (selectedRoom.Status == RoomStatus.Available)
                         {
                             selectedRoom.Status = RoomStatus.Available;
                             selectedRoom.guestName = "";
                             System.Console.WriteLine($"The room {selectedRoom} is available! ");
-                            File.WriteAllLines("Rooms.txt", lines);
                         }
-                    }
 
+
+
+                    }
 
 
                     Console.ReadLine();
@@ -270,6 +279,22 @@ while (running)
                 break;
 
             case "6":
+
+                System.Console.WriteLine("Mark that a room temporarly is not available.");
+                int chosenRoomNumber;
+                int.TryParse(Console.ReadLine(), out chosenRoomNumber);
+
+                foreach (Room room in rooms)
+
+                {
+                    if (chosenRoomNumber == room.roomNumber)
+                    {
+                        Console.WriteLine(room.Status = RoomStatus.Maintenance);
+                    }
+                }
+
+
+
                 //markera att ett rum, temporärt inte är tillgängligt
 
                 break;

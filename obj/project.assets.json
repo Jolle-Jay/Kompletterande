@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jolle/repos/kompletterande/kompletterande.csproj",
+      "projectUniqueName": "/Users/jolle/Desktop/kompletterande/kompletterande.csproj",
       "projectName": "kompletterande",
-      "projectPath": "/Users/jolle/repos/kompletterande/kompletterande.csproj",
+      "projectPath": "/Users/jolle/Desktop/kompletterande/kompletterande.csproj",
       "packagesPath": "/Users/jolle/.nuget/packages/",
-      "outputPath": "/Users/jolle/repos/kompletterande/obj/",
+      "outputPath": "/Users/jolle/Desktop/kompletterande/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/jolle/.nuget/NuGet/NuGet.Config"
