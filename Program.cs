@@ -23,7 +23,6 @@ List<Room> rooms = new List<Room>();
     {
 
     }
-    // KOD FÖR ATT LÄSA IN FRÅN Rooms.TXT OCH SPARA I LISTAN List<rooms>
 
     // Läser in alla rader och sparar varje rad i string array read. 
     string[] read = File.ReadAllLines("Rooms.txt"); //tvungen at göra en lista med linjer för att kunna addera det till txt fil
@@ -33,7 +32,7 @@ List<Room> rooms = new List<Room>();
     {
         string[] parts = line.Split(',');
 
-        // Gör om string "rumnummer" till int roomNum
+        // Gör om int "rumnummer" till string roomNum
         int roomNum;
         int.TryParse(parts[0], out roomNum);
 
@@ -229,12 +228,12 @@ while (running)
                                 System.Console.WriteLine("That room not available fool!");
                             }
 
-                            List<string> lines = new List<string>();
+                            List<string> lines = new List<string>(); // Gör en lista för att kunna spara logiken som har hänt i det
                             foreach (Room room in rooms)
                             {
-                                lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}");
+                                lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}"); // Där adderar jag mina 3 enums.
                             }
-                            File.WriteAllLines("Rooms.txt", lines);
+                            File.WriteAllLines("Rooms.txt", lines); // Skriver tillbaka det i text filen
                         }
 
                     }
@@ -261,31 +260,31 @@ while (running)
                     int inputNumber;
                     int.TryParse(Console.ReadLine(), out inputNumber);
 
-                    Room selectedRoom = null;
+                    Room selectedRoom = null; // Gör min en variabel och gör det null för att kunna ha något att spara i
 
                     foreach (Room room in rooms)
                     {
-                        if (room.roomNumber == inputNumber)
+                        if (room.roomNumber == inputNumber) // Om rumnumret är samma som inputnumber
                         {
-                            selectedRoom = room;
+                            selectedRoom = room; // Då blir SRoom room därav så är det inte null längre
                             break;
                         }
                     }
-                    if (selectedRoom != null && selectedRoom.Status == RoomStatus.Occupied)
+                    if (selectedRoom != null && selectedRoom.Status == RoomStatus.Occupied) // Om sRoom inte är null och det är occupied
                     {
 
 
-                        selectedRoom.Status = RoomStatus.Available;
-                        selectedRoom.guestName = "";
+                        selectedRoom.Status = RoomStatus.Available; // Gör det till available
+                        selectedRoom.guestName = ""; // Med en stom sträng som namn
                         System.Console.WriteLine($"The room {selectedRoom.roomNumber} is available! ");
 
                     }
-                    List<string> lines = new List<string>();
+                    List<string> lines = new List<string>(); // Gör en lista med strängar för att kunan spara detta i
                     foreach (Room room in rooms)
                     {
-                        lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}");
+                        lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}"); // lägger till enums i lines
                     }
-                    File.WriteAllLines("Rooms.txt", lines);
+                    File.WriteAllLines("Rooms.txt", lines); // Och sparar det i txt dokumentet.
 
 
                     Console.ReadLine();
