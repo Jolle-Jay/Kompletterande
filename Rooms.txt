@@ -1,10 +1,10 @@
-1, Occupied,       Son-Goku
-2, Occupied,       Jack-SParrow
-3, Occupied,       Vegeta
-4, Available,     
-5, Available,      
-6, Available,      
-7, Available,      
-8, Available,      
-9, Maintenance,      
-10, Maintenance,      
+1, Occupied,             Son-Goku
+2, Occupied,             Jack-SParrow
+3, Occupied,             Vegeta
+4, Available,           
+5, Available,            
+6, Available,            
+7, Available,            
+8, Available,            
+9, Maintenance,            
+10, Maintenance,            

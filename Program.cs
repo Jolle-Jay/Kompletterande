@@ -21,16 +21,7 @@ List<Room> rooms = new List<Room>();
 {
     ;
     {
-        // rooms.Add(new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" });
-        // rooms.Add(new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" });
-        // rooms.Add(new Room { roomNumber = 3, Status = RoomStatus.Occupied, guestName = "Zora" });
-        // rooms.Add(new Room { roomNumber = 4, Status = RoomStatus.Occupied, guestName = "Son-Goku" });
-        // rooms.Add(new Room { roomNumber = 5, Status = RoomStatus.Available, });
-        // rooms.Add(new Room { roomNumber = 6, Status = RoomStatus.Available, });
-        // rooms.Add(new Room { roomNumber = 7, Status = RoomStatus.Available, });
-        // rooms.Add(new Room { roomNumber = 8, Status = RoomStatus.Available, });
-        // rooms.Add(new Room { roomNumber = 9, Status = RoomStatus.Available, });
-        // rooms.Add(new Room { roomNumber = 10, Status = RoomStatus.Available, });
+
     }
     // KOD FÖR ATT LÄSA IN FRÅN Rooms.TXT OCH SPARA I LISTAN List<rooms>
 
@@ -153,6 +144,14 @@ while (running)
                         else
                             guestName = "(No guest name)";
                         System.Console.WriteLine($"The room {roomNumber} are occupied by guest {guestName}");
+                    }
+                    else if (parts.Length >= 2 && parts[1].Trim() == "Maintenance")
+                    {
+                        string roomNumber = parts[0];
+                        string guestname;
+                        if (parts.Length > 2)
+                            guestname = parts[2];
+                        System.Console.WriteLine($"The room {roomNumber} is Unavailable right now.");
                     }
 
                 }
@@ -299,21 +298,34 @@ while (running)
 
             case "6":
                 {
-                    System.Console.WriteLine("Mark that a room temporarly is not available.");
+                    Console.Clear();
+                    System.Console.WriteLine("Choose what room for Maintenance");
+                    string[] Rbook = File.ReadAllLines("Rooms.txt");
+
+                    foreach (Room room in rooms)
+                    {
+                        if (room.Status == RoomStatus.Available)
+                        {
+
+                            System.Console.WriteLine($"These are the Availabe rooms {room.roomNumber}");
+                        }
+                    }
+
+                    System.Console.WriteLine("Put the number for the room you want to choose.");
                     int chosenRoomNumber;
                     int.TryParse(Console.ReadLine(), out chosenRoomNumber);
+
                     Room selectedRoom = null;
 
                     foreach (Room room in rooms)
                     {
 
+                        if (room.roomNumber == chosenRoomNumber)
                         {
-                            if (room.roomNumber == chosenRoomNumber)
-                            {
-                                selectedRoom = room; //Lägger in room i SRoom efter jag har sagt att chosenNumber faktiskt är lika med ett RoomNumber
-                                break;
-                            }
+                            selectedRoom = room; //Lägger in room i SRoom efter jag har sagt att chosenNumber faktiskt är lika med ett RoomNumber
+                            break;
                         }
+
                     }
                     if (selectedRoom != null && selectedRoom.Status == RoomStatus.Available) // När då selecteROOM inte är null så kan jag göra det occupied och lägga in ett nammn
                     {
