@@ -5,7 +5,6 @@ public enum RoomStatus
 {
     Available,
     Occupied,
-    Cleaning,
     Maintenance,
 }
 public class Room

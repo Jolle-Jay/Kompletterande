@@ -19,7 +19,7 @@ using app;
 List<User> users = new List<User>();
 List<Room> rooms = new List<Room>();
 {
-
+    ;
     {
         // rooms.Add(new Room { roomNumber = 1, Status = RoomStatus.Occupied, guestName = "Hercules" });
         // rooms.Add(new Room { roomNumber = 2, Status = RoomStatus.Occupied, guestName = "Odin" });
@@ -183,18 +183,18 @@ while (running)
                     Console.Clear();
                     System.Console.WriteLine("These are the available rooms");
 
-                    string[] BRooms = File.ReadAllLines("Rooms.txt");
-                    foreach (Room room in rooms)
+                    string[] BRooms = File.ReadAllLines("Rooms.txt"); // Lägger alla text filer i strängen BRooms
+                    foreach (Room room in rooms) // Loopar igenom alla rummen
                     {
-                        if (room.Status == RoomStatus.Available)
+                        if (room.Status == RoomStatus.Available) // Om det är tillgängliga
                         {
-                            System.Console.WriteLine($"Room {room.roomNumber}");
+                            System.Console.WriteLine($"Room {room.roomNumber}"); // Då skrivs roomnummerna ut
                         }
                     }
 
                     System.Console.WriteLine("What room number to book?");
-                    int BBB;
-                    int.TryParse(Console.ReadLine(), out BBB);
+                    int BBB; // User input i nummer
+                    int.TryParse(Console.ReadLine(), out BBB); // Som jag gör om till sträng
 
                     Room selectedRoom = null; //Måste göra något som kan hålla allt det jag vill skriva i och sätta det som null för att börja lägga in saker
 
@@ -203,25 +203,25 @@ while (running)
                         {
 
                             {
-                                if (room.roomNumber == BBB)
+                                if (room.roomNumber == BBB) // Om input är samma som rumnummer som finns
                                 {
                                     selectedRoom = room; //Lägger in room i SRoom efter jag har sagt att chosenNumber faktiskt är lika med ett RoomNumber
                                     break;
                                 }
                             }
                         }
-                        if (selectedRoom != null) // När då SROOM inte är null så kan jag göra det occupied och lägga in ett nammn
+                        if (selectedRoom != null) // När då selecteROOM inte är null så kan jag göra det occupied och lägga in ett nammn
                         {
-                            if (selectedRoom.Status == RoomStatus.Available)
+                            if (selectedRoom.Status == RoomStatus.Available) // Om det status är available då kan jag 
 
                             {
                                 System.Console.WriteLine("What is the name of the guest?");
-                                string guestName = Console.ReadLine();
+                                string guestName = Console.ReadLine(); // skriva in ett gästnamn
 
-                                selectedRoom.Status = RoomStatus.Occupied;
+                                selectedRoom.Status = RoomStatus.Occupied; // DEt blir occupied
 
 
-                                selectedRoom.guestName = guestName;
+                                selectedRoom.guestName = guestName; // Lägger in variabeln i valda rummets enum
 
                                 System.Console.WriteLine($"Room {selectedRoom.roomNumber} booked!");
                             }
@@ -298,21 +298,46 @@ while (running)
                 break;
 
             case "6":
-
-                System.Console.WriteLine("Mark that a room temporarly is not available.");
-                int chosenRoomNumber;
-                int.TryParse(Console.ReadLine(), out chosenRoomNumber);
-
-                foreach (Room room in rooms)
-
                 {
-                    if (chosenRoomNumber == room.roomNumber)
+                    System.Console.WriteLine("Mark that a room temporarly is not available.");
+                    int chosenRoomNumber;
+                    int.TryParse(Console.ReadLine(), out chosenRoomNumber);
+                    Room selectedRoom = null;
+
+                    foreach (Room room in rooms)
                     {
-                        Console.WriteLine(room.Status = RoomStatus.Maintenance);
+
+                        {
+                            if (room.roomNumber == chosenRoomNumber)
+                            {
+                                selectedRoom = room; //Lägger in room i SRoom efter jag har sagt att chosenNumber faktiskt är lika med ett RoomNumber
+                                break;
+                            }
+                        }
                     }
+                    if (selectedRoom != null && selectedRoom.Status == RoomStatus.Available) // När då selecteROOM inte är null så kan jag göra det occupied och lägga in ett nammn
+                    {
+
+                        selectedRoom.Status = RoomStatus.Maintenance;
+
+                        System.Console.WriteLine($"The Room {selectedRoom.roomNumber} is put for Maintenance!");
+                    }
+
+
+                    else
+                    {
+                        System.Console.WriteLine("That room not available fool!");
+                    }
+
+                    List<string> lines = new List<string>();
+                    foreach (Room room in rooms)
+                    {
+                        lines.Add($"{room.roomNumber}, {room.Status}, {room.guestName}");
+                    }
+                    File.WriteAllLines("Rooms.txt", lines);
+                    Console.ReadLine();
+
                 }
-
-
 
                 //markera att ett rum, temporärt inte är tillgängligt
 
